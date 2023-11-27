@@ -1,20 +1,29 @@
-describe('user register', () => {
-    const user = {
-        name: "Matheus",
-        email: "matheusmatheus@matheus.com",
-        password: "321"
-    }
+const { faker } = require('@faker-js/faker')
 
-    it('should allow register a new user', () => {
-        cy.visit('/')
+describe('Teste de cadastro de usuário', () => {
+  const usuario = {
+    nome: faker.name.fullName(),
+    email: faker.internet.email(),
+    senha: faker.internet.password(),
+  };
 
-        cy.getByData('botao-login').click();
-        cy.getByData('name-input').type(user.name);
-        cy.getByData('email-input').type(user.email);
-        cy.getByData('senha-input').type(user.password);
-        cy.getByData('checkbox--input').check();
-        cy.getByData('botao-enviar').click();
+  it('Deve permitir cadastrar um usuário com sucesso', () => {
+    cy.visit('/');
 
-        cy.getByData('menssagem-sucesso').should('exist').contains('Usuário cadastrado com sucesso!')
-    })
-})
+    cy.getByData('botao-cadastro').click();
+    cy.getByData('nome-input').type(usuario.nome);
+    cy.getByData('email-input').type(usuario.email);
+    cy.getByData('senha-input').type(usuario.senha);
+    cy.getByData('checkbox-input').check();
+    cy.getByData('botao-enviar').click();
+
+    cy.getByData('mensagem-sucesso')
+      .should('exist')
+      .contains('Usuário cadastrado com sucesso!');
+
+    cy.request('GET', 'http://localhost:8000/users').then((resposta) => {
+      expect(resposta.body).to.have.lengthOf.at.least(1);
+      expect(resposta.body[resposta.body.length - 1]).to.deep.include(usuario);
+    });
+  });
+});

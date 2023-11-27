@@ -1,0 +1,25 @@
+[
+      {
+       
+        "nome": "Neilton Seguins",
+        "email": "neilton@alura.com",
+        "senha": "123456"
+      },
+      {
+   
+        "nome": "Vinicius Neves",
+        "email": "vinny@alura.com",
+        "senha": "789456"
+      },
+      {
+        "nome": "Marcos Garcia",
+        "email": "matheus@matheus.com",
+        "senha": "123"
+      },
+      {
+  
+        "nome": "Matheus",
+        "email": "matheusmatheus@matheus.com",
+        "senha": "321"
+      }
+    ]
